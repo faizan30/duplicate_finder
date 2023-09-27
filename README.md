@@ -11,9 +11,4 @@ conda activate /home/botml/duplicate_finder/env
 ## Install dependencies
 conda install -y transformers -c pytorch
 pip install -r requirements.txt
-## Download models
 
-## Start API
-
-
-# RUN with Docker
