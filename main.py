@@ -1,5 +1,6 @@
 from typing import Union, List, Dict
 import os
+import uuid
 
 from fastapi import FastAPI
 from src.duplicate_finder import find_duplicates
@@ -43,10 +44,14 @@ def get_duplicates(title:str, content:str, retriever_k=10, ranker_k=5):
     return find_duplicates(text, retriever, ranker, int(retriever_k), int(ranker_k))
 
 
-@app.post("/write_documents")
-def write_documents_api(text_list:List[dict]):
-    writer_document_store = load_document_store(document_store_dir, index_name)
-    write_documents(text_list, writer_document_store, retriever)
+@app.post("/write_document")
+def write_documents_api(title:str, content:str):
+    document_store = load_document_store(document_store_dir, index_name)
+    doc = {}
+    doc['content'] = title+"\n"+content
+    doc['meta'] = {'meta': {'name': title, 'id': str(uuid.uuid4())}}
+    
+    write_documents([doc], document_store, retriever)
     index_path = document_store_dir+index_name
     document_store.save(index_path=index_path)
     return {"status": "success"}
@@ -69,21 +74,21 @@ def docstore_info_api():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=9800)
+
+    # # WRITE DOCUMENTS TO THE DOCUMENT STORE INITIALLY
     # from src.vector_data_manager import prepare_documents, write_documents
+    # data_path = ".data/AI Sample Data.xlsx"
+    # documents = prepare_documents(data_path)
+    # document_store_dir = ".data/document_store/"
+    # index_name = "new_faiss_index.faiss"
+    # index_path = document_store_dir+index_name
+    # # #write documents to the document store
+    # write_documents(documents, document_store, retriever)
+    # document_store.save(index_path=index_path)
 
-#     # WRITE DOCUMENTS TO THE DOCUMENT STORE
-#     data_path = ".data/AI Sample Data.xlsx"
-#     documents = prepare_documents(data_path)
-#     document_store_dir = ".data/document_store/"
-#     index_name = "new_faiss_index.faiss"
-#     index_path = document_store_dir+index_name
-#     # #write documents to the document store
-#     write_documents(documents, document_store, retriever)
-#     document_store.save(index_path=index_path)
-
-#     #COUNT DOCUMENTS
-#     count = document_store.get_document_count()
-#     print("The count of the documents: ", count)
+    # #COUNT DOCUMENTS
+    # count = document_store.get_document_count()
+    # print("The number of documents: ", count)
 
     # dummy_data = [
     #     {
