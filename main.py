@@ -81,7 +81,7 @@ if __name__ == "__main__":
 #     count = document_store.get_document_count()
 #     print("The count of the documents: ", count)
 
-    # [
+    # dummy_data = [
     #     {
     #         'title': 'Vehicle Information Display Panel',
     #         'content':"A display panel at Fleet front desk offers vehicle updates to the users. Users can input equipment ID, plate number, cost center, or coordinator's PR number to determine the job status and ascertain if the vehicle is awaiting further action or if it is prepared for use."
