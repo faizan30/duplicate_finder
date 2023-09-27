@@ -45,18 +45,18 @@ def get_duplicates(title:str, content:str, retriever_k=10, ranker_k=5):
 
 @app.post("/write_documents")
 def write_documents_api(text_list:List[dict]):
-    writer_document_store = load_document_store(document_store_dir, index_name_global)
+    writer_document_store = load_document_store(document_store_dir, index_name)
     write_documents(text_list, writer_document_store, retriever)
-    index_path = document_store_dir+index_name_global
+    index_path = document_store_dir+index_name
     document_store.save(index_path=index_path)
     return {"status": "success"}
 
 
 @app.get("/docstore_info")
-def docstore_info_api(text_list:List[dict]):
-    vector_document_store = load_document_store(document_store_dir, index_name_global)
-    count = document_store.get_document_count()
-    return {"document_count": "count"}
+def docstore_info_api():
+    vector_document_store = load_document_store(document_store_dir, index_name)
+    count = vector_document_store.get_document_count()
+    return {"idea_count": count}
 
 # @app.post("/duplicates_batch")
 # def get_duplicates_batch(text_list:List[dict], retriever_k=10, ranker_k=5):
