@@ -7,12 +7,13 @@ from src.vector_data_manager import write_documents
 from src.vector_data_manager import load_document_store
 import json
 
-
+# DOCUMENT STORE INITIALIZATION
 document_store_dir = ".data/document_store/"
 index_name = "new_faiss_index.faiss"
 database_name = "faiss_document_store.db"
 document_store = load_document_store(document_store_dir, index_name, database_name)
 
+# RETRIEVER INITIALIZATION
 model_format = "retribert"
 embedding_model = "yjernite/retribert-base-uncased"
 # embedding_model = "sentence-transformers/multi-qa-mpnet-base-dot-v1"
@@ -22,10 +23,13 @@ retriever = EmbeddingRetriever(document_store=document_store,
                             embedding_model=embedding_model,
                             model_format=model_format)
 
+
+# RANKER INITIALIZATION
 from haystack.nodes import BM25Retriever, SentenceTransformersRanker
 ranker_model = "cross-encoder/ms-marco-MiniLM-L-12-v2"
 ranker = SentenceTransformersRanker(model_name_or_path=ranker_model)
 
+# FASTAPI INITIALIZATION
 app = FastAPI()
 @app.get("/")
 def read_root():
