@@ -1,5 +1,5 @@
 
-def find_duplicates(text, retriever_k=10, ranker_k=5):
+def find_duplicates(text, retriever, ranker, retriever_k=10, ranker_k=5):
     '''Given a text paragraph, find if the duplicates exist in a vector database'''
     
     candidate_duplicates = retriever.retrieve(query=text, top_k=retriever_k)
