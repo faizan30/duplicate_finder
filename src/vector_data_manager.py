@@ -42,3 +42,5 @@ def prepare_documents(data_path):
         docs.append(doc)
 
     return docs
+
+    
