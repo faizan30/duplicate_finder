@@ -61,9 +61,9 @@ def docstore_info_api():
 #         text_batch.append(text)
 #     return find_duplicates_batch(text_batch, retriever_k, ranker_k)
     
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=9800)
+# if __name__ == "__main__":
+    # import uvicorn
+    # uvicorn.run(app, host="0.0.0.0", port=9800)
 
     # # WRITE DOCUMENTS TO THE DOCUMENT STORE INITIALLY
     # from src.vector_data_manager import prepare_documents, write_documents
@@ -73,8 +73,8 @@ if __name__ == "__main__":
     # index_name = "new_faiss_index.faiss"
     # index_path = document_store_dir+index_name
     # # #write documents to the document store
-    # write_documents(documents, document_store, retriever)
-    # document_store.save(index_path=index_path)
+    # write_documents(documents, document_store_global, retriever_global)
+    # document_store_global.save(index_path=index_path)
 
     # #COUNT DOCUMENTS
     # count = document_store.get_document_count()
@@ -86,5 +86,3 @@ if __name__ == "__main__":
     #         'content':"A display panel at Fleet front desk offers vehicle updates to the users. Users can input equipment ID, plate number, cost center, or coordinator's PR number to determine the job status and ascertain if the vehicle is awaiting further action or if it is prepared for use."
     #     }
     # ]
-
-    
